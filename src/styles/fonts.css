@@ -1,0 +1,54 @@
+/*
+ * 폰트는 CDN 없이 /public/fonts 에 직접 넣은 파일만 사용합니다.
+ * - 제목: 낭만있구미체   → public/fonts/GumiRomance.otf
+ * - 본문: Pretendard     → public/fonts/Pretendard-*.woff2
+ * - 캐릭터 대사: 온글잎 윤탱체 → public/fonts/온글잎윤탱체.ttf
+ */
+
+@font-face {
+  font-family: 'NangmanGumi';
+  src: url('/fonts/GumiRomance.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OwnglyphYuntaeng';
+  src: url('/fonts/온글잎윤탱체.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/Pretendard-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
