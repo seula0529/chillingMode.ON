@@ -25,10 +25,22 @@ CDN을 쓰지 않고 `public/fonts/`에 넣은 파일만 사용합니다.
 
 [src/styles/base.css](src/styles/base.css)의 네 가지 토큰만 사용합니다. 다른 색(투명도 변형 포함)을 추가하지 마세요.
 
-## 신청서 전송 (텔레그램 봇 연결 예정)
+## 신청서 전송 (텔레그램 봇)
 
 "신청하기"를 누르면 `VITE_SUBMIT_ENDPOINT`로 아래 JSON을 `POST`합니다.
-주소가 비어 있으면 개발 모드에서는 콘솔에 출력만 하고 완료 화면으로 넘어갑니다.
+배포 빌드에서는 [.env.production](.env.production)에 따라 같은 Vercel 프로젝트의 [api/submit.js](api/submit.js)로 보내고,
+이 함수가 값을 다시 검사한 뒤 텔레그램 그룹에 알림을 보냅니다.
+`npm run dev`에서는 주소가 비어 있으므로 콘솔에 출력만 하고 완료 화면으로 넘어갑니다.
+
+### Vercel 설정
+
+1. Vercel에서 이 GitHub 저장소를 Import (Framework Preset: Vite — 자동 인식)
+2. Settings → Environment Variables 에 추가
+   - `TELEGRAM_BOT_TOKEN` : BotFather에게 받은 봇 토큰
+   - `TELEGRAM_CHAT_ID` : 알림 받을 그룹 Chat ID (`-100…`)
+3. 환경 변수를 넣거나 바꾼 뒤에는 Deployments에서 **Redeploy** 해야 반영됩니다.
+
+봇 토큰은 Vercel 환경 변수에만 두고, 코드나 `.env.production`에는 절대 넣지 마세요.
 
 ```json
 {

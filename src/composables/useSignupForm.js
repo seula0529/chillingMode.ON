@@ -55,7 +55,7 @@ const validators = {
     if (!form.name.trim()) e.name = '이름을 알려주세요.'
     const age = Number(form.age)
     if (!form.age) e.age = '나이를 알려주세요.'
-    else if (age < 20 && age > 35) e.age = '20세~35세만 신청할 수 있어요.'
+    else if (age < 20 || age > 35) e.age = '20세~35세만 신청할 수 있어요.'
     else if (!Number.isInteger(age)) e.age = '나이를 숫자로 정확히 적어주세요.'
     if (!form.gender) e.gender = '성별을 골라주세요.'
     if (!form.mbtiUnknown && form.mbti.some((v) => !v)) e.mbti = 'MBTI 네 자리를 모두 골라주세요.'
