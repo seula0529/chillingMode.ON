@@ -10,7 +10,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['submit'])
 
-const { validateStep } = useSignupForm()
+const { form, validateStep } = useSignupForm()
 
 // 0 = 인트로, 1..N = 문항
 const step = ref(0)
@@ -105,7 +105,7 @@ function prev() {
       </Transition>
 
       <div class="m__nav">
-        <button type="submit" class="btn btn--primary m__next" :disabled="status === 'sending'">
+        <button type="submit" class="btn btn--primary m__next" :disabled="status === 'sending' || (isLast && !form.consent)">
           <template v-if="step === 0">시작하기</template>
           <template v-else-if="isLast">{{ status === 'sending' ? '보내는 중…' : '신청하기' }}</template>
           <template v-else-if="!current.required">다음 (건너뛰어도 돼요)</template>

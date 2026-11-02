@@ -34,6 +34,8 @@ function initialForm() {
     gender: '',
     mbti: ['', '', '', ''],
     mbtiUnknown: false,
+    gu: '',
+    // '광산구 우산동'처럼 구 이름까지 붙은 값
     dong: '',
     attendance: '',
     activities: [],
@@ -59,7 +61,8 @@ const validators = {
     else if (!Number.isInteger(age)) e.age = '나이를 숫자로 정확히 적어주세요.'
     if (!form.gender) e.gender = '성별을 골라주세요.'
     if (!form.mbtiUnknown && form.mbti.some((v) => !v)) e.mbti = 'MBTI 네 자리를 모두 골라주세요.'
-    if (!form.dong.trim()) e.dong = '사는 동을 알려주세요.'
+    if (!form.gu) e.dong = '사는 구를 골라주세요.'
+    else if (!form.dong) e.dong = '사는 동을 골라주세요.'
     return e
   },
   attendance() {

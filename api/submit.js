@@ -8,6 +8,8 @@
  * 토큰은 서버에서만 읽히고 브라우저에는 노출되지 않습니다.
  */
 
+import { DONG_VALUES } from '../src/gwangjuDongs.js'
+
 const ATTENDANCE_LABELS = {
   weekly: '매주 참석 가능 (화 저녁 7시)',
   biweekly: '2주에 한 번 참석 가능',
@@ -42,7 +44,7 @@ function validate(body) {
   if (!Number.isInteger(data.age) || data.age < 20 || data.age > 35) problems.push('age')
   if (!GENDERS.includes(data.gender)) problems.push('gender')
   if (!MBTI_RE.test(data.mbti)) problems.push('mbti')
-  if (!data.dong) problems.push('dong')
+  if (!DONG_VALUES.includes(data.dong)) problems.push('dong')
   if (!ATTENDANCE_LABELS[data.attendance]) problems.push('attendance')
   if (!PHONE_RE.test(data.contact)) problems.push('contact')
   if (!data.consent) problems.push('consent')

@@ -1,5 +1,6 @@
 <script setup>
 import { MBTI_AXES, useSignupForm } from '../../composables/useSignupForm'
+import { GWANGJU_DONGS } from '../../gwangjuDongs'
 
 const { form, errors, clearError } = useSignupForm()
 
@@ -15,6 +16,12 @@ function toggleUnknown() {
   form.mbtiUnknown = !form.mbtiUnknown
   if (form.mbtiUnknown) form.mbti = ['', '', '', '']
   clearError('mbti')
+}
+
+// 구를 바꾸면 이전 구의 동은 맞지 않으므로 비웁니다.
+function onGuChange() {
+  form.dong = ''
+  clearError('dong')
 }
 
 function onAgeInput(e) {
@@ -102,21 +109,37 @@ function onAgeInput(e) {
       <p v-if="errors.mbti" class="error-text">{{ errors.mbti }}</p>
     </fieldset>
 
-    <div class="field">
-      <label class="field__label" for="f-dong">사는 동<span class="req">*</span></label>
-      <input
-        id="f-dong"
-        v-model="form.dong"
-        class="input"
-        type="text"
-        maxlength="20"
-        placeholder="예) 송정동"
-        :aria-invalid="!!errors.dong"
-        aria-describedby="e-dong"
-        @input="clearError('dong')"
-      />
+    <fieldset class="field">
+      <legend class="field__label">사는 동<span class="req">*</span></legend>
+      <div class="place">
+        <select
+          v-model="form.gu"
+          class="input"
+          required
+          aria-label="구"
+          :aria-invalid="!!errors.dong && !form.gu"
+          aria-describedby="e-dong"
+          @change="onGuChange"
+        >
+          <option value="" disabled>구</option>
+          <option v-for="gu in Object.keys(GWANGJU_DONGS)" :key="gu" :value="gu">{{ gu }}</option>
+        </select>
+        <select
+          v-model="form.dong"
+          class="input"
+          required
+          aria-label="동"
+          :disabled="!form.gu"
+          :aria-invalid="!!errors.dong"
+          aria-describedby="e-dong"
+          @change="clearError('dong')"
+        >
+          <option value="" disabled>{{ form.gu ? '동' : '구를 먼저 골라주세요' }}</option>
+          <option v-for="d in GWANGJU_DONGS[form.gu] || []" :key="d" :value="`${form.gu} ${d}`">{{ d }}</option>
+        </select>
+      </div>
       <p v-if="errors.dong" id="e-dong" class="error-text">{{ errors.dong }}</p>
-    </div>
+    </fieldset>
   </div>
 </template>
 
@@ -198,6 +221,29 @@ legend {
   justify-content: space-between;
   gap: 10px;
   margin-top: 10px;
+}
+
+.place {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 20px;
+}
+
+select.input {
+  cursor: pointer;
+}
+
+select.input:disabled {
+  cursor: default;
+}
+
+/* 아직 고르지 않았을 때는 placeholder처럼 보이게 */
+select.input:invalid {
+  color: var(--brown);
+}
+
+select.input option {
+  color: var(--ink);
 }
 
 .mbti__result {

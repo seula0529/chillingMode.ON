@@ -126,7 +126,7 @@ onBeforeUnmount(() => observer?.disconnect())
       </QuestionFrame>
 
       <div class="d__submit">
-        <button type="submit" class="btn btn--primary d__submit-btn" :disabled="status === 'sending'">
+        <button type="submit" class="btn btn--primary d__submit-btn" :disabled="status === 'sending' || !form.consent">
           {{ status === 'sending' ? '보내는 중…' : '신청하기' }}
         </button>
       </div>

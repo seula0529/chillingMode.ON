@@ -50,7 +50,7 @@ CDN을 쓰지 않고 `public/fonts/`에 넣은 파일만 사용합니다.
   "age": 28,
   "gender": "여성",
   "mbti": "INFP",
-  "dong": "송정동",
+  "dong": "광산구 송정1동",
   "attendance": "weekly",
   "attendanceLabel": "매주 참석 가능",
   "activities": ["독서", "산책"],
