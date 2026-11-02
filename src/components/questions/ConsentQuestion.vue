@@ -4,7 +4,7 @@ import { useSignupForm } from '../../composables/useSignupForm'
 const { form, errors, clearError } = useSignupForm()
 
 const TERMS = [
-  ['수집 항목', '출생연도, 연락처, 신청서 응답 내용'],
+  ['수집 항목', '이름, 나이, 성별, MBTI, 사는 동, 연락처, 정모 참석 가능 여부, 희망 활동'],
   ['이용 목적', '신청 확인, 일정 안내 및 모임 운영'],
   ['보유 기간', '신청일로부터 2주 내 파기 (모임 참여자는 탈퇴 시까지)'],
 ]

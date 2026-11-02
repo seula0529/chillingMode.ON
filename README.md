@@ -38,6 +38,7 @@ CDN을 쓰지 않고 `public/fonts/`에 넣은 파일만 사용합니다.
 2. Settings → Environment Variables 에 추가
    - `TELEGRAM_BOT_TOKEN` : BotFather에게 받은 봇 토큰
    - `TELEGRAM_CHAT_ID` : 알림 받을 그룹 Chat ID (`-100…`)
+   - `TELEGRAM_THREAD_ID` : (선택) 알림 받을 토픽 번호. 토픽 메시지 링크 `t.me/c/123…/5/…`의 가운데 숫자. 비워두면 General
 3. 환경 변수를 넣거나 바꾼 뒤에는 Deployments에서 **Redeploy** 해야 반영됩니다.
 
 봇 토큰은 Vercel 환경 변수에만 두고, 코드나 `.env.production`에는 절대 넣지 마세요.

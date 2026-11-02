@@ -4,6 +4,7 @@
  * Vercel 프로젝트 → Settings → Environment Variables 에 아래 두 값을 넣어야 합니다.
  *   TELEGRAM_BOT_TOKEN  BotFather에게 받은 봇 토큰
  *   TELEGRAM_CHAT_ID    알림을 받을 그룹 Chat ID (-100으로 시작)
+ *   TELEGRAM_THREAD_ID  (선택) 알림을 받을 토픽 번호. 비워두면 General 토픽
  * 토큰은 서버에서만 읽히고 브라우저에는 노출되지 않습니다.
  */
 
@@ -49,10 +50,6 @@ function validate(body) {
   return { data, problems }
 }
 
-function escapeHtml(s) {
-  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-}
-
 function formatKst(date) {
   return new Intl.DateTimeFormat('ko-KR', {
     timeZone: 'Asia/Seoul',
@@ -73,11 +70,11 @@ export function buildMessage(d, receivedAt = new Date()) {
     ['연락처', d.contact],
   ]
   return [
-    '<b>🌿 칠링모드 새 가입 신청</b>',
+    '🌿 칠링모드 새 가입 신청',
     '',
-    ...rows.map(([k, v]) => `<b>${k}</b>  ${escapeHtml(v)}`),
+    ...rows.map(([k, v]) => `${k}: ${v}`),
     '',
-    `<i>${escapeHtml(formatKst(receivedAt))} 접수</i>`,
+    `${formatKst(receivedAt)} 접수`,
   ].join('\n')
 }
 
@@ -120,8 +117,9 @@ export default async function handler(req, res) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       chat_id: TELEGRAM_CHAT_ID,
+      // 비워두면 General 토픽으로 보냄
+      message_thread_id: process.env.TELEGRAM_THREAD_ID ? Number(process.env.TELEGRAM_THREAD_ID) : undefined,
       text: buildMessage(data),
-      parse_mode: 'HTML',
       disable_web_page_preview: true,
     }),
   })
